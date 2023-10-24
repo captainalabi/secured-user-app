@@ -7,7 +7,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -25,11 +24,6 @@ public class SecurityConfiguration{
 		this.userService = userService;
 	}
 
-//	@Bean
-//	public BCryptPasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -42,22 +36,16 @@ public class SecurityConfiguration{
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
-//	"/list-user", "/list", "/saveUser", "/showUpdateForm",
-//	"/deleteUser", "/showRoleForm", "/createRole", "/listRoles",
-//	"/editRole", "/deleteRole"
-	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 		.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/login", "/addnewuser", "/", "/home", "/index", "/img/**"
-						, "/js/**", "/css/**",
-						"/list-user", "/list", "/saveUser", "/showUpdateForm",
+						, "/js/**", "/saveUser", "/css/**").permitAll()
+				.requestMatchers("/list-user", "/list", "/showUpdateForm",
 						"/deleteUser", "/showRoleForm", "/createRole", "/listRoles",
-						"/editRole", "/deleteRole"
-						).permitAll()
-				.requestMatchers("").
+						"/editRole", "/deleteRole").
 				hasAuthority("MASTER")
 								.anyRequest().authenticated()
 			)

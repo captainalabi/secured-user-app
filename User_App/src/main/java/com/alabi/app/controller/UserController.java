@@ -59,16 +59,15 @@ public class UserController {
 	
 	@PostMapping("/saveUser")
 	public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {		
-		
-		
+				
 		try {
-			if (user.getId() != null) {
+			if(user.getId() != null) {
 				userService.edit(user);
 			}else {
 				userService.create(user);
-				String successMessage = "a";
-				redirectAttributes.addFlashAttribute("successMessage", successMessage);
-			}
+			}								
+			String successMessage = "a";
+			redirectAttributes.addFlashAttribute("successMessage", successMessage);
 		}catch(DataIntegrityViolationException e) {
 			
 		}

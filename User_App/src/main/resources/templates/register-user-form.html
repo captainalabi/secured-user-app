@@ -34,25 +34,27 @@
 					<div class="form-group">
 						<label class="control-label" for="firstName">First Name</label>
 						<input id="firstName" class="form-control" th:field="${user.firstName}"
-						 required autofocus="autofocus"/>
+						 required autofocus="autofocus" th:readonly="${user.id}"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="lastName">Last Name</label>
 						<input id="lastName" class="form-control" th:field="${user.lastName}"
-						 required autofocus="autofocus"/>
+						 required autofocus="autofocus" th:readonly="${user.id}"/>
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="email">email</label>
 						<input id="email" class="form-control" th:field="${user.email}"
-						 required autofocus="autofocus"/>
+						 required autofocus="autofocus" th:readonly="${user.id}"/>
 					</div>
+					<div th:unless="${user.id}">
 					<div class="form-group">
 						<label class="control-label" for="password">Password</label>
 						<input type="password" id="password" class="form-control" th:field="${user.password}"
-						 required autofocus="autofocus"/>
+						 required autofocus="autofocus" th:readonly="${user.id}"/>
+					</div>
 					</div>
 					
-					<!--<div th:if="${user.id}">-->
+					<div th:if="${user.id}"
 					<div class="form-group row p-1">
 			  <label for="name" class="col-form-label col-sm-4">Roles:</label>
 			   <div class="col-sm-8">
@@ -62,7 +64,8 @@
 				   <option th:text="${role.name}" th:value="${role.id}"/>
 				  </th:block>
 			  </select>
-			  <!-- </div>-->
+			  </div>
+		  			</div>
 		  			</div>
 		  			</div>
 					<div class="form-group">

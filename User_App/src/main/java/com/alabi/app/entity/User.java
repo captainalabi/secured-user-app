@@ -40,6 +40,15 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
+	public User(String firstName, String lastName, String email, Collection <Role> roles) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		
+		this.roles = roles;
+	}
+	
 	public User(String firstName, String lastName, String email, String password, Collection <Role> roles) {
 		super();
 		this.firstName = firstName;

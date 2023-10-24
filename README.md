@@ -1,4 +1,5 @@
-A fullstack Spring security application form user management for authentication and authorization. 
+A fullstack Spring security application for user management; authentication and authorization. 
 It defines user and roles entities with many to many relationship, allows login, logout
-and secures specific endpoints.
-technologies used include thymeleaf, bootstrap, spring boot starter, hibernate, jpa, mySQL.
+and secures specified endpoints. Allows roles allocation by user with master role.
+Technologies used include spring security, thymeleaf, bootstrap, spring boot starter, hibernate, jpa, mySQL, datatable.
+can easily be adapted to any fullstack app.

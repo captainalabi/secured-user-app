@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.alabi.app.entity.User;
 import com.alabi.app.service.RoleService;
 import com.alabi.app.service.UserService;
@@ -22,7 +21,7 @@ public class UserController {
 
 	private UserService userService;
 	private RoleService roleService;
-	
+
 	@Autowired
 	public UserController(UserService userService, RoleService roleService) {
 		super();
@@ -30,62 +29,63 @@ public class UserController {
 		this.roleService = roleService;
 	}
 
-	@GetMapping({"/"})
-	public String homePage() {		
+	
+	@GetMapping({ "/" })
+	public String homePage(Model model) {
 		return "index";
 	}
-	
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
-	@GetMapping({"/list-user", "/list"})
-	public ModelAndView listUser() {		
+
+	@GetMapping({ "/list-user", "/list" })
+	public ModelAndView listUser() {
 		ModelAndView mav = new ModelAndView("list-users");
-		List <User> user = userService.read(); 
-		mav.addObject("user", user);		
+		List<User> user = userService.read();
+		mav.addObject("user", user);
 		return mav;
 	}
-	
+
 	@GetMapping("/addnewuser")
-	public ModelAndView addUserForm() {		
+	public ModelAndView addUserForm() {
 		ModelAndView mav = new ModelAndView("register-user-form");
-		User user = new User();		
+		User user = new User();
 		mav.addObject("user", user);
 		mav.addObject("roleList", roleService.readRole());
 		return mav;
 	}
-	
+
 	@PostMapping("/saveUser")
-	public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {		
-				
+	public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+		String successMessage = "";
 		try {
-			if(user.getId() != null) {
+			if (user.getId() != null) {
 				userService.edit(user);
-			}else {
+				successMessage = "User Edit successful";
+			} else {
 				userService.create(user);
-			}								
-			String successMessage = "a";
+				successMessage = "User Registration successful";
+			}
 			redirectAttributes.addFlashAttribute("successMessage", successMessage);
-		}catch(DataIntegrityViolationException e) {
-			
+		} catch (DataIntegrityViolationException e) {
+			successMessage = "Duplicate Registration, Please Try Again!";
 		}
-		
 		return "redirect:/addnewuser";
 	}
-	
+
 	@GetMapping("/showUpdateForm")
-	public ModelAndView showUpdateForm(@RequestParam Long userId) {		
+	public ModelAndView showUpdateForm(@RequestParam Long userId) {
 		ModelAndView mav = new ModelAndView("register-user-form");
 		mav.addObject("roleList", roleService.readRole());
 		User user = userService.findById(userId);
 		mav.addObject("user", user);
 		return mav;
 	}
-	
+
 	@GetMapping("/deleteUser")
-	public String deleteEmployee(@RequestParam Long userId) {		
+	public String deleteEmployee(@RequestParam Long userId) {
 		userService.deleteById(userId);
 		return "redirect:/list";
 	}

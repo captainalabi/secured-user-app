@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org/extras/spring-security">
 	
 	<head>
 		<title>Registration App</title>
@@ -13,21 +13,21 @@
 		
 		
 		<div class="container">
-			<div class="roiw">
+			<div class="row">
 				
 				<h1 class="col-md-6 col-md-offset-3">User Management Web App Which can be adapted 
 					to any app for Registration and login/logout</h1>
 				
 				<br>
 				
-				<div sec:authorize="isAuthenticated()" >
-					<span sec:authentication="  principal.username">You are Welcome</span>
-					<div>
-					Authenticated as <span sec:authentication="name"></span>
-					</div>
+				<div sec:authorize="isAuthenticated() " >
+					<span sec:authentication="principal.username">You are Welcome</span>					
 					 </div>
+					 <div>
+					Authenticated as <span sec:authentication="name"></span>					
+					</div>
 					
-					
+								
 			</div>
 		</div>
 	</body>

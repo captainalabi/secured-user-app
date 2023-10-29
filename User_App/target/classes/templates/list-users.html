@@ -17,6 +17,7 @@
 
 		<center>
 			<h2>List of User</h2>
+			
 		</center>
 		<a th:href="@{/addnewuser}" class="btn btn-primary mb-2">Register User</a>
 		<table border="1" class="table table-bordered table-striped" id="user-table">
@@ -57,6 +58,8 @@
 				}]
 			});
 		})
+		<!--disable datatable warning-->
+		$.fn.dataTableExt.sErrMode = 'throw'
 	</script>
 </body>
 

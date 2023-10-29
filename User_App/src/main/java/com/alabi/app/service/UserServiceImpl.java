@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alabi.app.config.Encoder;
@@ -85,6 +83,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public void edit(User user) {
+		Long id = user.getId();
+		String pass = (userRepository.findById(id).get()).getPassword();
+		
+		user.setPassword(pass);
 		userRepository.save(user);
 	}
 	

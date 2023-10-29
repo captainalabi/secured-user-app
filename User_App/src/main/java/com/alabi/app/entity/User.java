@@ -4,6 +4,7 @@ package com.alabi.app.entity;
 import java.util.Collection;
 
 import org.hibernate.annotations.ManyToAny;
+import org.springframework.lang.NonNull;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
@@ -21,11 +24,19 @@ public class User {
 	@jakarta.persistence.Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	
+	//@NotBlank(message = "First Name is Mandatory")
 	private String firstName;
+	
+	//@NotBlank(message = "Last Name is Mandatory")
 	private String lastName;
+	
 	@Column(unique = true)
+	//@NotBlank(message = "Email is Mandatory") @Email
 	private String email;
+	
 	private String password;
+	
 	@ManyToAny(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
